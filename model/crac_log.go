@@ -1,7 +1,5 @@
 package model
 
-import "context"
-
 const CracLogTableName = "crac_log"
 
 type CracLog struct {
@@ -28,10 +26,19 @@ type CracLog struct {
 }
 
 // CracLogCountAll 返回总数信息
-func (c *Dao) CracLogCountAll(ctx context.Context) (int64, error) {
+func (c *Dao) CracLogCountAll(year string) (int64, error) {
 	var (
 		count int64
 	)
-	err := c.DB.WithContext(ctx).Table(CracLogTableName).Where("status = ?", 1).Count(&count).Error
+	err := c.DB.Table(CracLogTableName).Where("year = ? and status = ?", year, 1).Count(&count).Error
+	return count, err
+}
+
+// CracLogCountGroupByCall 独立呼号个数
+func (c *Dao) CracLogCountGroupByCall(year string) (int64, error) {
+	var (
+		count int64
+	)
+	err := c.DB.Table(CracLogTableName).Where("year = ? and status = ?", year, 1).Group("call_obj").Count(&count).Error
 	return count, err
 }

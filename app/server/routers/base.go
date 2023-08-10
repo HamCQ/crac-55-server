@@ -9,6 +9,8 @@ type Router struct{}
 func (r *Router) SetRouter() *mux.Router {
 	//总路由
 	router := mux.NewRouter()
-
+	{
+		r.API(router)
+	}
 	return router
 }

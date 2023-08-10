@@ -3,23 +3,30 @@ package handler
 import (
 	"crac55/app/server/code"
 	"crac55/app/server/entities"
-	"crac55/common/clog"
+	"crac55/common/tools"
 	"net/http"
+	"strconv"
+	"time"
+
+	"github.com/gorilla/mux"
 )
 
 // AnalyseTotal 返回统计数值
 func (c *CracHandler) AnalyseTotal(w http.ResponseWriter, r *http.Request) {
 	var (
-		res   entities.CommonResp
-		total entities.AnalyseTotal
+		res entities.CommonResp
 	)
-	logCount, err := c.Service.Dao.CracLogCountAll(r.Context())
+	vars := mux.Vars(r)
+	year, ok := vars["year"]
+	if !ok {
+		year = strconv.Itoa(time.Now().Year())
+	}
+	year = tools.CheckYear(year)
+	num, err := c.Service.AnalyseNum(year)
 	if err != nil {
-		clog.Log().Errorln(err)
 		code.SystemError(w, code.FailMsg, code.SystemErrCode)
 		return
 	}
-	total.LogNum = logCount
-	res.Data = total
+	res.Data = num
 	code.RespJSON(w, res)
 }
