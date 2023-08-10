@@ -15,7 +15,7 @@ var DB *gorm.DB
 // Init 初始化数据库连接
 func Init() {
 	var err error
-	c := conf.DbCommon{}
+	c := conf.AppConf.MySQL
 	DB, err = newMysqlConn(c.HostPort, c.User, c.PWD, c.DataBaseName, c.Min, c.Max)
 	if err != nil {
 		clog.Log().Fatalf("conn db error %s", err.Error())
