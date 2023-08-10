@@ -1,7 +1,7 @@
 package service
 
 import (
-	"crac55/model"
+	"crac55/app/server/model"
 )
 
 type Service struct {

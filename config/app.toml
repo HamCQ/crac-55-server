@@ -13,3 +13,16 @@
     hostport = "127.0.0.1:6379"
     password = ""
     db = 0
+
+[email]
+    [exmail]
+        host = "smtp.qq.com"
+        port = 465
+        from = ""
+        [exmail.account]
+            user = ""
+            password = ""
+
+[task.test]
+    spec = "*/5 * * * * ?"
+    status = "off"
