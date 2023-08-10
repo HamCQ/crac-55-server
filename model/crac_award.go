@@ -16,3 +16,12 @@ type CracAward struct {
 	Status      int8   `gorm:"column:status"`
 	Remark      string `gorm:"column:remark"`
 }
+
+// CracAwardCountAll 返回总数信息
+func (c *Dao) CracAwardCountAll(year string) (int64, error) {
+	var (
+		count int64
+	)
+	err := c.DB.Table(CracAwardTableName).Where("year = ? and status = ?", year, 1).Count(&count).Error
+	return count, err
+}
