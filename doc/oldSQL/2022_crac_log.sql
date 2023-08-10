@@ -1,0 +1,23 @@
+CREATE TABLE `log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `call` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '被呼叫的呼号',
+  `continent` varchar(12) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '呼号所在大陆板块',
+  `mode` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '模式 SSB/CW/FT8',
+  `band` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '米波段',
+  `qso_date` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '日期',
+  `time_on` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `time_off` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `qso_timestamp` int DEFAULT '0' COMMENT '日期时间戳',
+  `status` tinyint NOT NULL DEFAULT '1' COMMENT '0 关闭 1 正常',
+  `frequency` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '频率',
+  `station_callsign` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `operator` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '',
+  `log_filename` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '所属日志文件来源',
+  `created_time` int NOT NULL DEFAULT '0',
+  `update_time` int DEFAULT '0',
+  `remark` varchar(45) COLLATE utf8mb4_general_ci DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `index_mode` (`mode`),
+  KEY `index_band` (`band`),
+  KEY `index_status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci

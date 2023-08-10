@@ -1,0 +1,15 @@
+[app]
+    hostport = "127.0.0.1:5100"
+
+[mysql]
+    hostport="127.0.0.1:3306" 
+    user=""
+    pwd=""
+    databasename=""
+    min = 10
+    max = 100
+
+[redis]
+    hostport = "127.0.0.1:6379"
+    password = ""
+    db = 0
