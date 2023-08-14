@@ -2,7 +2,6 @@ package handler
 
 import (
 	"crac55/app/server/code"
-	"crac55/app/server/entities"
 	"crac55/common/tools"
 	"net/http"
 	"strconv"
@@ -13,9 +12,6 @@ import (
 
 // AnalyseTotal 返回统计数值
 func (c *CracHandler) AnalyseTotal(w http.ResponseWriter, r *http.Request) {
-	var (
-		res entities.CommonResp
-	)
 	vars := mux.Vars(r)
 	year, ok := vars["year"]
 	if !ok {
@@ -27,6 +23,5 @@ func (c *CracHandler) AnalyseTotal(w http.ResponseWriter, r *http.Request) {
 		code.SystemError(w, code.FailMsg, code.SystemErrCode)
 		return
 	}
-	res.Data = num
-	code.SuccussJSON(w, res)
+	code.SuccussJSON(w, num)
 }

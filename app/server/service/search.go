@@ -11,32 +11,31 @@ import (
 func (s *Service) Search(callsign, year string) []entities.SearchStationDetail {
 	abstract := entities.SearchBxCraDetailMap()
 	// point := entities.SearchBxCraPointMap()
-
 	info, err := s.Dao.CracLogSearch(callsign, year)
 	if err != nil {
 		clog.Log().Errorln(err)
 		return abstract
 	}
 	for _, v := range info {
-		s.dealBxCra(v, &abstract)
+		for _, a := range abstract {
+			s.dealBxCra(v, &a)
+		}
 	}
 	return abstract
 }
 
 // dealBxCra 归类数据 b0-9cra
-func (s *Service) dealBxCra(qso model.CracLog, t *[]entities.SearchStationDetail) {
-	for _, v := range *t {
-		mode := tools.CateMode(qso.Mode)
-		if qso.Station == v.CallsignStation {
-			if mode == entities.ModeCW {
-				s.dealBxcraCWDetail(qso, &v)
-			}
-			if mode == entities.ModePhone {
-				s.dealBxcraPhoneDetail(qso, &v)
-			}
-			if mode == entities.ModeDigi {
-				s.dealBxcraDigiDetail(qso, &v)
-			}
+func (s *Service) dealBxCra(qso model.CracLog, t *entities.SearchStationDetail) {
+	mode := tools.CateMode(qso.Mode)
+	if qso.Station == t.CallsignStation {
+		if mode == entities.ModeCW {
+			s.dealBxcraCWDetail(qso, t)
+		}
+		if mode == entities.ModePhone {
+			s.dealBxcraPhoneDetail(qso, t)
+		}
+		if mode == entities.ModeDigi {
+			s.dealBxcraDigiDetail(qso, t)
 		}
 	}
 }
