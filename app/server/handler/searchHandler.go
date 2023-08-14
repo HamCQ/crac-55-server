@@ -22,6 +22,5 @@ func (c *CracHandler) Search(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	year = tools.CheckYear(year)
-	res.Bxcra, res.Bncra = c.Service.Search(callsign, year)
-	code.SuccussJSON(w, res)
+	code.SuccussJSON(w, c.Service.Search(callsign, year))
 }

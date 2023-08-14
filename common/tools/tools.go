@@ -68,3 +68,17 @@ func CateMode(mode string) string {
 	}
 	return ""
 }
+
+// AwardTypeString
+func AwardTypeString(t int8) string {
+	switch t {
+	case 1:
+		return "Gold"
+	case 2:
+		return "Silver"
+	case 3:
+		return "Bronze"
+	default:
+		return "Unknown"
+	}
+}

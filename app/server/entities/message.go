@@ -12,5 +12,5 @@ type CommonResp struct {
 type SearchPayload struct {
 	Bxcra       []SearchStationDetail `json:"bxcra"`
 	Bncra       SearchStationDetail   `json:"bncra"`
-	AwardStatus bool                  `json:"award_status"`
+	AwardStatus AwardInfo             `json:"award_info"`
 }

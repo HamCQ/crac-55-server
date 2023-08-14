@@ -8,20 +8,33 @@ import (
 )
 
 // Search 首页搜索
-func (s *Service) Search(callsign, year string,
-) ([]entities.SearchStationDetail, entities.SearchStationDetail) {
-	var bxcra = entities.SearchBxCraDetailMap()
-	var bncra = entities.SearchBnCraMap()
+func (s *Service) Search(callsign, year string) entities.SearchPayload {
+	var res entities.SearchPayload
+	res.Bxcra = entities.SearchBxCraDetailMap()
+	res.Bncra = entities.SearchBnCraMap()
 	info, err := s.Dao.CracLogSearch(callsign, year)
 	if err != nil {
 		clog.Log().Errorln(err)
-		return bxcra, bncra
+		return res
 	}
 	for _, v := range info {
-		s.dealBxCra(v, &bxcra)
-		s.dealBncra(v, &bncra)
+		s.dealBxCra(v, &res.Bxcra)
+		s.dealBncra(v, &res.Bncra)
 	}
-	return bxcra, bncra
+	awardInfo, err := s.Dao.CracAwardQueryByCall(callsign, year)
+	if err != nil {
+		clog.Log().Errorln(err)
+		return res
+	}
+	if awardInfo.ID != 0 {
+		res.AwardStatus = entities.AwardInfo{
+			Status:      true,
+			AwardType:   awardInfo.AwardType,
+			AwardString: tools.AwardTypeString(awardInfo.AwardType),
+			Continent:   awardInfo.Continent,
+		}
+	}
+	return res
 }
 
 // dealBxCra 归类数据 b0-9cra

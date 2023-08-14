@@ -1,5 +1,11 @@
 package model
 
+import (
+	"errors"
+
+	"gorm.io/gorm"
+)
+
 const CracAwardTableName = "crac_award"
 
 type CracAward struct {
@@ -24,4 +30,15 @@ func (c *Dao) CracAwardCountAll(year string) (int64, error) {
 	)
 	err := c.DB.Table(CracAwardTableName).Where("year = ? and status = ?", year, 1).Count(&count).Error
 	return count, err
+}
+
+// CracAwardQueryByCall 根据呼号查询奖状信息
+func (c *Dao) CracAwardQueryByCall(callsign, year string) (CracAward, error) {
+	var t CracAward
+	err := c.DB.Table(CracAwardTableName).
+		Where("callsign = ? and year = ? and status = ?", callsign, year, 1).First(&t).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return t, err
+	}
+	return t, nil
 }

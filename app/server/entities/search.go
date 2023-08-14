@@ -42,28 +42,6 @@ func SearchBxCraDetailMap() []SearchStationDetail {
 	return t
 }
 
-// SearchBxCraInfo 0-9 信息
-// type SearchBxCraInfo struct {
-// 	CallsignStation string            `json:"callsign_station"` //B0-9Cra
-// 	Phone           SearchCommonPoint `json:"phone"`
-// 	CW              SearchCommonPoint `json:"cw"`
-// 	Digi            SearchCommonPoint `json:"digi"`
-// }
-
-// SearchCommonPoint 首页查询-得分
-// type SearchCommonPoint struct {
-// 	M160 int `json:"160M"` //160M
-// 	M80  int `json:"80M"`
-// 	M40  int `json:"40M"`
-// 	M30  int `json:"30M"`
-// 	M20  int `json:"20M"`
-// 	M17  int `json:"17M"`
-// 	M15  int `json:"15M"`
-// 	M12  int `json:"12M"`
-// 	M10  int `json:"10M"`
-// 	M6   int `json:"6M"`
-// }
-
 // SearchStationDetail 首页查询-站台归类
 type SearchStationDetail struct {
 	CallsignStation string `json:"callsign_station"`
@@ -96,4 +74,12 @@ type SearchQsoBand struct {
 type SearchQsoDetail struct {
 	Oprator  string `json:"oprator"`
 	Frequecy string `json:"frequecy"`
+}
+
+// AwardInfo 获奖信息
+type AwardInfo struct {
+	Status      bool   `json:"status"`
+	AwardType   int8   `json:"award_type"`
+	AwardString string `json:"award_string"`
+	Continent   string `json:"continent"`
 }
