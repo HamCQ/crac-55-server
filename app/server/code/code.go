@@ -26,6 +26,18 @@ func RespJSON(w http.ResponseWriter, data interface{}) {
 	io.WriteString(w, string(content))
 }
 
+// SuccussJSON 成功响应
+func SuccussJSON(w http.ResponseWriter, data interface{}) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	content, _ := json.Marshal(&entities.CommonResp{
+		Code:    SuccessCode,
+		Status:  true,
+		Message: SuccessMsg,
+		Data:    data,
+	})
+	io.WriteString(w, string(content))
+}
+
 // SystemError 返回系统错误信息
 func SystemError(w http.ResponseWriter, errMsg string, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")

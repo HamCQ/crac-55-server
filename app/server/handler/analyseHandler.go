@@ -28,5 +28,5 @@ func (c *CracHandler) AnalyseTotal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	res.Data = num
-	code.RespJSON(w, res)
+	code.SuccussJSON(w, res)
 }

@@ -51,3 +51,20 @@ func IsBnCra(call string) bool {
 	}
 	return match
 }
+
+// CateMode 整理mode
+func CateMode(mode string) string {
+	mode = strings.ToLower(mode)
+	if mode == "am" || mode == "fm" || mode == "ssb" {
+		return "PHONE"
+	}
+	if mode == "cw" {
+		return "CW"
+	}
+	if mode == "rtty" || mode == "psk31" ||
+		mode == "ft8" || mode == "ft4" ||
+		mode == "jt65" {
+		return "DIGI"
+	}
+	return ""
+}

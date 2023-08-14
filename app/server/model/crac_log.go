@@ -1,5 +1,11 @@
 package model
 
+import (
+	"errors"
+
+	"gorm.io/gorm"
+)
+
 const CracLogTableName = "crac_log"
 
 type CracLog struct {
@@ -41,4 +47,15 @@ func (c *Dao) CracLogCountGroupByCall(year string) (int64, error) {
 	)
 	err := c.DB.Table(CracLogTableName).Where("year = ? and status = ?", year, 1).Group("call_obj").Count(&count).Error
 	return count, err
+}
+
+// CracLogSearch 首页搜索
+func (c *Dao) CracLogSearch(callsign, year string) ([]CracLog, error) {
+	var t []CracLog
+	err := c.DB.Select("call_obj", "mode", "band", "qso_date", "frequency", "station_callsign", "operator").
+		Where("call_obj = ? and year = ? and status = ? ", callsign, year, 1).Find(&t).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return t, err
+	}
+	return t, nil
 }
