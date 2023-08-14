@@ -23,6 +23,5 @@ func (c *CracHandler) Search(w http.ResponseWriter, r *http.Request) {
 	}
 	year = tools.CheckYear(year)
 	abstract := c.Service.Search(callsign, year)
-	res.Data = abstract
-	code.SuccussJSON(w, res)
+	code.SuccussJSON(w, abstract)
 }
