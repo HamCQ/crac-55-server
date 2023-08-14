@@ -24,15 +24,11 @@ const (
 	BandM6    = "6M"
 )
 
-// SearchBxCraPointMap 初始化首页搜索得分数据
-func SearchBxCraPointMap() []SearchBxCraInfo {
-	var t []SearchBxCraInfo
-	for i := 0; i <= 9; i++ {
-		t = append(t, SearchBxCraInfo{
-			CallsignStation: fmt.Sprintf("B%dCRA", i),
-		})
+// SearchBnCraMap 初始化首页搜索得分数据 bncra
+func SearchBnCraMap() SearchStationDetail {
+	return SearchStationDetail{
+		CallsignStation: "BnCRA",
 	}
-	return t
 }
 
 // SearchBxCraDetailMap 首页查询-qso概要
@@ -47,30 +43,31 @@ func SearchBxCraDetailMap() []SearchStationDetail {
 }
 
 // SearchBxCraInfo 0-9 信息
-type SearchBxCraInfo struct {
-	CallsignStation string            `json:"callsign_station"` //B0-9Cra
-	Phone           SearchCommonPoint `json:"phone"`
-	CW              SearchCommonPoint `json:"cw"`
-	Digi            SearchCommonPoint `json:"digi"`
-}
+// type SearchBxCraInfo struct {
+// 	CallsignStation string            `json:"callsign_station"` //B0-9Cra
+// 	Phone           SearchCommonPoint `json:"phone"`
+// 	CW              SearchCommonPoint `json:"cw"`
+// 	Digi            SearchCommonPoint `json:"digi"`
+// }
 
 // SearchCommonPoint 首页查询-得分
-type SearchCommonPoint struct {
-	M160 int `json:"160M"` //160M
-	M80  int `json:"80M"`
-	M40  int `json:"40M"`
-	M30  int `json:"30M"`
-	M20  int `json:"20M"`
-	M17  int `json:"17M"`
-	M15  int `json:"15M"`
-	M12  int `json:"12M"`
-	M10  int `json:"10M"`
-	M6   int `json:"6M"`
-}
+// type SearchCommonPoint struct {
+// 	M160 int `json:"160M"` //160M
+// 	M80  int `json:"80M"`
+// 	M40  int `json:"40M"`
+// 	M30  int `json:"30M"`
+// 	M20  int `json:"20M"`
+// 	M17  int `json:"17M"`
+// 	M15  int `json:"15M"`
+// 	M12  int `json:"12M"`
+// 	M10  int `json:"10M"`
+// 	M6   int `json:"6M"`
+// }
 
 // SearchStationDetail 首页查询-站台归类
 type SearchStationDetail struct {
 	CallsignStation string `json:"callsign_station"`
+	Score           int    `json:"score"`
 	SearchModeDetail
 }
 
@@ -97,8 +94,6 @@ type SearchQsoBand struct {
 
 // SearchQsoDetail 首页查询-qso信息概要
 type SearchQsoDetail struct {
-	Call     string `json:"call"`
 	Oprator  string `json:"oprator"`
 	Frequecy string `json:"frequecy"`
-	QsoDate  string `json:"qso_date"`
 }

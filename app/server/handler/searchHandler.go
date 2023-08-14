@@ -12,7 +12,7 @@ func (c *CracHandler) Search(w http.ResponseWriter, r *http.Request) {
 	var (
 		callsign string
 		year     string
-		res      entities.CommonResp
+		res      entities.SearchPayload
 	)
 	values := r.URL.Query()
 	callsign = values.Get("callsign")
@@ -22,6 +22,6 @@ func (c *CracHandler) Search(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	year = tools.CheckYear(year)
-	abstract := c.Service.Search(callsign, year)
-	code.SuccussJSON(w, abstract)
+	res.Bxcra, res.Bncra = c.Service.Search(callsign, year)
+	code.SuccussJSON(w, res)
 }

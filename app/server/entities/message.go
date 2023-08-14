@@ -7,3 +7,10 @@ type CommonResp struct {
 	Message string      `json:"message,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
+
+// SearchPayload 首页搜索返回
+type SearchPayload struct {
+	Bxcra       []SearchStationDetail `json:"bxcra"`
+	Bncra       SearchStationDetail   `json:"bncra"`
+	AwardStatus bool                  `json:"award_status"`
+}
