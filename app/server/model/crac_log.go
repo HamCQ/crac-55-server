@@ -52,7 +52,7 @@ func (c *Dao) CracLogCountGroupByCall(year string) (int64, error) {
 // CracLogSearch 首页搜索
 func (c *Dao) CracLogSearch(callsign, year string) ([]CracLog, error) {
 	var t []CracLog
-	err := c.DB.Select("call_obj", "mode", "band", "qso_date", "frequency", "station_callsign", "operator").
+	err := c.DB.Table(CracLogTableName).Select("call_obj", "mode", "band", "qso_date", "frequency", "station_callsign", "operator").
 		Where("call_obj = ? and year = ? and status = ? ", callsign, year, 1).Find(&t).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return t, err

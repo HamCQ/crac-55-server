@@ -9,7 +9,7 @@ import (
 
 // Search 首页搜索
 func (s *Service) Search(callsign, year string) []entities.SearchStationDetail {
-	abstract := entities.SearchBxCraDetailMap()
+	var abstract = entities.SearchBxCraDetailMap()
 	// point := entities.SearchBxCraPointMap()
 	info, err := s.Dao.CracLogSearch(callsign, year)
 	if err != nil {
@@ -17,25 +17,25 @@ func (s *Service) Search(callsign, year string) []entities.SearchStationDetail {
 		return abstract
 	}
 	for _, v := range info {
-		for _, a := range abstract {
-			s.dealBxCra(v, &a)
-		}
+		s.dealBxCra(v, &abstract)
 	}
 	return abstract
 }
 
 // dealBxCra 归类数据 b0-9cra
-func (s *Service) dealBxCra(qso model.CracLog, t *entities.SearchStationDetail) {
+func (s *Service) dealBxCra(qso model.CracLog, t *[]entities.SearchStationDetail) {
 	mode := tools.CateMode(qso.Mode)
-	if qso.Station == t.CallsignStation {
-		if mode == entities.ModeCW {
-			s.dealBxcraCWDetail(qso, t)
-		}
-		if mode == entities.ModePhone {
-			s.dealBxcraPhoneDetail(qso, t)
-		}
-		if mode == entities.ModeDigi {
-			s.dealBxcraDigiDetail(qso, t)
+	for i := range *t {
+		if qso.Station == (*t)[i].CallsignStation {
+			if mode == entities.ModeCW {
+				s.dealBxcraCWDetail(qso, &(*t)[i])
+			}
+			if mode == entities.ModePhone {
+				s.dealBxcraPhoneDetail(qso, &(*t)[i])
+			}
+			if mode == entities.ModeDigi {
+				s.dealBxcraDigiDetail(qso, &(*t)[i])
+			}
 		}
 	}
 }
