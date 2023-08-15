@@ -83,3 +83,15 @@ type AwardInfo struct {
 	AwardString string `json:"award_string"`
 	Continent   string `json:"continent"`
 }
+
+// AwardDetail 奖状详细信息
+type AwardDetail struct {
+	AwardType      int8   `json:"award_type"`
+	AwardString    string `json:"award_string"`
+	Continent      string `json:"continent"`
+	BncraNum       int64  `json:"bncra_num"`
+	Callsign       string `json:"callsign"`
+	ImageUrl       string `json:"img_url"`
+	ImageUrlOrigin string `json:"img_url_origin"`
+	Combination    int64  `json:"combination"`
+}

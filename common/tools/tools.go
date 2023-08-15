@@ -3,6 +3,7 @@ package tools
 import (
 	"crac55/common/clog"
 	"fmt"
+	"net/url"
 	"regexp"
 	"runtime/debug"
 	"strconv"
@@ -100,4 +101,30 @@ func AwardTypeString(t int8) string {
 	default:
 		return "Unknown"
 	}
+}
+
+// UriFilterExcludeQueryString 去除url参数
+func UriFilterExcludeQueryString(uri string) string {
+	URL, _ := url.Parse(uri)
+	clearUri := strings.ReplaceAll(uri, URL.RawQuery, "")
+	clearUri = strings.TrimRight(clearUri, "?")
+	return strings.TrimRight(clearUri, "/")
+}
+
+// RencentTime 时间美化
+func RencentTime(t int64) string {
+	passTime := time.Now().Unix() - t
+	if passTime < 0 {
+		return "未知"
+	}
+	if passTime < 60 {
+		return fmt.Sprintf("%d秒前", passTime)
+	}
+	if passTime < 3600 {
+		return fmt.Sprintf("%d分钟前", passTime/60)
+	}
+	if passTime < 86400 {
+		return fmt.Sprintf("%d小时前", passTime/3600)
+	}
+	return fmt.Sprintf("%d天前", passTime/86400)
 }

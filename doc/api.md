@@ -68,7 +68,7 @@ Response:
 Method: `GET`
 
 ```
-/analyse/rank/top5
+/v1/55/analyse/rank/top5
 ```
 
 Request:
@@ -83,7 +83,7 @@ Request:
 Method: `GET`
 
 ```
-/analyse/rank/all
+/v1/55/analyse/rank/all
 ```
 
 Request:
@@ -212,6 +212,39 @@ Response:
             "cn_region_code": "35",
             "qso_num": 0
         }
+    ]
+}
+```
+
+# Slot 查询
+
+Method: `GET`
+
+```
+/v1/55/slot
+```
+
+Request:
+```
+{}
+```
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":[
+            "callsign_station": "BnCRA",
+            "cw": {
+                "6M": [
+                    {
+                        "callsign": "", //操作员呼号
+                        "time": "",     //slot时间
+                    }
+                ]
+            },
+
     ]
 }
 ```
