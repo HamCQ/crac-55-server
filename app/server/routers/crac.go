@@ -18,5 +18,8 @@ func (r *Router) API(router *mux.Router) {
 		open.HandleFunc("/analyse/total", h.AnalyseTotal).Methods(http.MethodGet)
 		open.HandleFunc("/analyse/rank/top5", h.AnalyseRankTop5).Methods(http.MethodGet)
 		open.HandleFunc("/analyse/rank/all", h.AnalyseRankAll).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/barchart/by09", h.AnalyseBY09BarChar).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/barchart/bncra", h.AnalyseBnCraBarChart).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/province", h.AnalyseByProvince).Methods(http.MethodGet)
 	}
 }

@@ -1,10 +1,10 @@
-## 🔗基础链接
+# 基础链接
 
 当前测试地址：https://dev.hamcq.cn  
 
-如果额外说明，接口返回为 `json` 格式
+如果没有额外说明，接口返回均为 `json` 格式
 
-## 首页搜索
+# 首页搜索
 
 Method: `GET`
 
@@ -62,7 +62,7 @@ Response:
 }
 ```
 
-## 排名统计 - Top5
+# 排名统计 - Top5
 
 
 Method: `GET`
@@ -77,7 +77,7 @@ Request:
 | year | 2023 | String | N | 所属年份 |
 
 
-## 排名统计 - 所有
+# 排名统计 - 所有
 
 
 Method: `GET`
@@ -102,7 +102,7 @@ GlobleDiffCra = 3
 GlobleCra     = 4
 ```
 
-## 数据统计-总数
+# 数据统计 - 总数
 
 Method: `GET`
 
@@ -127,3 +127,91 @@ Response:
 }
 ```
 
+
+
+# 数据统计 - BY 电台通联数量统计（0-9 区）
+
+Method: `GET`
+
+```
+/v1/55/analyse/barchart/by09
+```
+
+Request:
+| Name | E.g. | Type | Require | Remark |
+| --- | --- | --- | --- | --- |
+| year | 2023 | String | N | 所属年份 |
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":[
+        {
+            "by_code": 5,
+            "cw_num": 0,
+            "phone_num": 0,
+            "digi_num": 0
+        }
+    ]
+}
+```
+
+# 数据统计 - BnCRA 电台通联统计 / BnCRA 电台通联模式比例
+
+Method: `GET`
+
+```
+/v1/55/analyse/barchart/bncra
+```
+
+Request:
+| Name | E.g. | Type | Require | Remark |
+| --- | --- | --- | --- | --- |
+| year | 2023 | String | N | 所属年份 |
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":[
+        {
+            "callsign_station": "B0CRA",
+            "cw_num": 0,
+            "phone_num": 0,
+            "digi_num": 0,
+            "sum": 0
+        }
+    ]
+}
+```
+
+
+# 数据统计 - 省份 QSO 数量统计
+
+Method: `GET`
+
+```
+/v1/55/analyse/province
+```
+
+Request:
+| Name | E.g. | Type | Require | Remark |
+| --- | --- | --- | --- | --- |
+| year | 2023 | String | N | 所属年份 |
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":[
+        {
+            "cn_region_code": "35",
+            "qso_num": 0
+        }
+    ]
+}
+```

@@ -19,3 +19,25 @@ type AnalyseRankContent struct {
 	Callsign string `json:"callsign"`
 	Score    int    `json:"score"`
 }
+
+// AnalyseBy09 BY电台通联数量统计(0-9区)
+type AnalyseBy09 struct {
+	ByCode   int   `json:"by_code"`
+	CWNum    int64 `json:"cw_num"`
+	PhoneNum int64 `json:"phone_num"`
+	DigiNum  int64 `json:"digi_num"`
+}
+
+// AnalyseProvince 省份QSO数量统计
+type AnalyseProvince struct {
+	CnRegionCode int   `json:"cn_region_code"` //行政区域编码
+	QsoNum       int64 `json:"qso_num"`
+}
+
+type AnalyseBnCra struct {
+	CallsignStation string `json:"callsign_station"`
+	CWNum           int64  `json:"cw_num"`
+	PhoneNum        int64  `json:"phone_num"`
+	DigiNum         int64  `json:"digi_num"`
+	Sum             int64  `json:"sum"`
+}

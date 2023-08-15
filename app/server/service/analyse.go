@@ -4,6 +4,7 @@ import (
 	"crac55/app/server/entities"
 	"crac55/common/cache"
 	"crac55/common/clog"
+	"fmt"
 	"time"
 )
 
@@ -87,4 +88,81 @@ func (s *Service) AnalyseRankAll(year string, rankType, page int) ([]entities.An
 		res, err = cache.RankAll(cache.KeyGlobleCra(year), page)
 	}
 	return res, err
+}
+
+// AnalyseBy09 BY电台通联数量统计(0-9区)
+func (s *Service) AnalyseBy09(year string) []entities.AnalyseBy09 {
+	var (
+		res []entities.AnalyseBy09
+	)
+	for i := 0; i <= 9; i++ {
+		cwNum, err := s.Dao.CracLogBy09(i, []string{"cw"}, year)
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		phoneNum, err := s.Dao.CracLogBy09(i, []string{"am", "fm", "ssb"}, year)
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		digiNum, err := s.Dao.CracLogBy09(i, []string{"rtty", "psk31", "ft8", "ft4", "jt65"}, year)
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		res = append(res, entities.AnalyseBy09{
+			ByCode:   i,
+			CWNum:    cwNum,
+			PhoneNum: phoneNum,
+			DigiNum:  digiNum,
+		})
+	}
+	return res
+}
+
+// AnalyseProvince 省份通联数量统计
+func (s *Service) AnalyseProvince(year string) ([]entities.AnalyseProvince, error) {
+	var (
+		res []entities.AnalyseProvince
+	)
+	province, err := s.Dao.CracLogProvince(year)
+	if err != nil {
+		clog.Log().Errorln(err)
+		return res, err
+	}
+	for _, v := range province {
+		res = append(res, entities.AnalyseProvince{
+			CnRegionCode: v.CnRegionCode,
+			QsoNum:       int64(v.Num),
+		})
+	}
+	return res, nil
+}
+
+// AnalyseBnCraBarChart BnCRA 电台通联统计
+func (s *Service) AnalyseBnCraBarChart(year string) ([]entities.AnalyseBnCra, error) {
+	var (
+		res []entities.AnalyseBnCra
+	)
+	for i := 0; i <= 9; i++ {
+		bncra := fmt.Sprintf("B%dCRA", i)
+		cwNum, err := s.Dao.CracLogBnCra(bncra, year, []string{"cw"})
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		phoneNum, err := s.Dao.CracLogBnCra(bncra, year, []string{"am", "fm", "ssb"})
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		digiNum, err := s.Dao.CracLogBnCra(bncra, year, []string{"rtty", "psk31", "ft8", "ft4", "jt65"})
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		res = append(res, entities.AnalyseBnCra{
+			CallsignStation: bncra,
+			CWNum:           cwNum,
+			PhoneNum:        phoneNum,
+			DigiNum:         digiNum,
+			Sum:             cwNum + phoneNum + digiNum,
+		})
+	}
+	return res, nil
 }

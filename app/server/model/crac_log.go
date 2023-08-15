@@ -31,6 +31,11 @@ type CracLog struct {
 	UpdateTime   int64  `gorm:"column:update_time"`
 }
 
+type CracLogProvince struct {
+	CnRegionCode int `gorm:"column:cn_region_code"`
+	Num          int `gorm:"column:num"`
+}
+
 // CracLogCountAll 返回总数信息
 func (c *Dao) CracLogCountAll(year string) (int64, error) {
 	var (
@@ -58,4 +63,35 @@ func (c *Dao) CracLogSearch(callsign, year string) ([]CracLog, error) {
 		return t, err
 	}
 	return t, nil
+}
+
+// CracLogBy09 BY电台通联数量统计(0-9区)
+func (c *Dao) CracLogBy09(byCode int, mode []string, year string) (int64, error) {
+	var (
+		count int64
+	)
+	err := c.DB.Table(CracLogTableName).
+		Where("cn_by_code = ? and mode in (?) and continent = ? and year = ? and status = ?",
+			byCode, mode, "AS", year, 1).Count(&count).Error
+	return count, err
+}
+
+// CracLogProvince 省份通联数量统计
+func (c *Dao) CracLogProvince(year string) ([]CracLogProvince, error) {
+	var res []CracLogProvince
+	err := c.DB.Table(CracLogTableName).Select("cn_region_code,count(*) as num").
+		Where("continent = ? and year = ? and status = ? and cn_region_code != ?", "AS", year, 1, 0).
+		Group("cn_region_code").Find(&res).Error
+	return res, err
+}
+
+// CracLogBnCra BnCRA 电台通联统计
+func (c *Dao) CracLogBnCra(station, year string, mode []string) (int64, error) {
+	var (
+		count int64
+	)
+	err := c.DB.Table(CracLogTableName).
+		Where("station_callsign = ? and mode in (?) and year = ? and status = ?",
+			station, mode, year, 1).Count(&count).Error
+	return count, err
 }
