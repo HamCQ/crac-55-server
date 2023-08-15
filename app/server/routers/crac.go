@@ -15,6 +15,8 @@ func (r *Router) API(router *mux.Router) {
 	{
 		h := handler.NewCrac()
 		open.HandleFunc("/search", h.Search).Methods(http.MethodGet)
-		open.HandleFunc("/analyse/total/{year}", h.AnalyseTotal).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/total", h.AnalyseTotal).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/rank/top5", h.AnalyseRankTop5).Methods(http.MethodGet)
+		open.HandleFunc("/analyse/rank/all", h.AnalyseRankAll).Methods(http.MethodGet)
 	}
 }

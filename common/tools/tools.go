@@ -35,6 +35,25 @@ func CheckYear(y string) string {
 	return y
 }
 
+// CheckRankPageParam 处理页码
+func CheckRankPageParam(page string) int {
+	p, err := strconv.Atoi(page)
+	if p < 0 || err != nil {
+		p = 0
+	}
+	return p
+}
+
+// CheckRankType 校验首页排序类型
+func CheckRankType(t string) int {
+	p, err := strconv.Atoi(t)
+	//目前只有4种类型
+	if p <= 0 || p > 4 || err != nil {
+		p = 1
+	}
+	return p
+}
+
 // GetByCode 提取所在区号
 func GetByCode(callsign string) (int, error) {
 	var valid = regexp.MustCompile("[0-9]")

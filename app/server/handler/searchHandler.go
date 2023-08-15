@@ -16,11 +16,10 @@ func (c *CracHandler) Search(w http.ResponseWriter, r *http.Request) {
 	)
 	values := r.URL.Query()
 	callsign = values.Get("callsign")
-	year = values.Get("year")
+	year = tools.CheckYear(values.Get("year"))
 	if callsign == "" {
 		code.SuccussJSON(w, res)
 		return
 	}
-	year = tools.CheckYear(year)
 	code.SuccussJSON(w, c.Service.Search(callsign, year))
 }

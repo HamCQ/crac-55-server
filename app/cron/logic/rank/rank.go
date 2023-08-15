@@ -10,15 +10,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var (
-	CN_DIFF_CRA     = "CN_DIFF_CRA" + "_2023"
-	GLOBLE_DIFF_CRA = "GLOBLE_DIFF_CRA" + "_2023"
-	CN_CRA          = "CN_CRA" + "_2023"
-	GLOBLE_CRA      = "GLOBLE_CRA" + "_2023"
-	UpdateFlag      = "CRAC_LOG_UPDATE"
-	RunStatus       = "CRAC_LOG_A_RUN"
-)
-
 // CracLogRankCron 呼号排名定时脚本
 type CracLogRankCron struct {
 	log *logrus.Logger

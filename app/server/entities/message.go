@@ -14,3 +14,12 @@ type SearchPayload struct {
 	Bncra       SearchStationDetail   `json:"bncra"`
 	AwardStatus AwardInfo             `json:"award_info"`
 }
+
+// AnalyseRankTopRes 排名统计
+type AnalyseRankTopRes struct {
+	UpdateTime    string               `json:"update_time"`
+	CnDiffCra     []AnalyseRankContent `json:"cn_diff_cra"`
+	CnCra         []AnalyseRankContent `json:"cn_cra"`
+	GlobleDiffCra []AnalyseRankContent `json:"globle_diff_cra"`
+	GlobleCra     []AnalyseRankContent `json:"globle_cra"`
+}
