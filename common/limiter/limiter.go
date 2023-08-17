@@ -31,13 +31,16 @@ func NewIPRateLimiter(r rate.Limit, b int) *IPRateLimiter {
 	}
 }
 
+func GetIPRateLimiter() *IPRateLimiter {
+	return Limit
+}
+
 func (i *IPRateLimiter) AddIP(ip string) *rate.Limiter {
 	i.mu.Lock()
 	defer i.mu.Unlock()
-	limiter := rate.NewLimiter(i.r, i.b)
-	i.ips[ip].limiter = limiter
-	i.ips[ip].lastSeen = time.Now()
-	return limiter
+	t := rate.NewLimiter(i.r, i.b)
+	i.ips[ip] = &visitor{t, time.Now()}
+	return t
 }
 
 func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
