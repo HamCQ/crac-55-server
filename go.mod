@@ -12,6 +12,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/text v0.11.0
+	golang.org/x/time v0.3.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/gorm v1.25.2

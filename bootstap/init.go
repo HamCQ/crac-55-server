@@ -7,6 +7,7 @@ import (
 	"crac55/common/clog"
 	"crac55/common/conf"
 	"crac55/common/db"
+	"crac55/common/limiter"
 	"crac55/common/tools"
 )
 
@@ -18,4 +19,5 @@ func Init() {
 	cache.Init()                                      //初始化缓存
 	code.InitI18n()                                   //初始化预设状态码
 	tools.Go(func() { cron.NewCrontab().InitTask() }) //初始化定时任务
+	tools.Go(func() { limiter.CleanupVisitors() })
 }

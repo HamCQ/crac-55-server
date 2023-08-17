@@ -14,6 +14,7 @@ func (r *Router) API(router *mux.Router) {
 	h := handler.NewCrac()
 
 	open.Use(middleware.Middleware)
+	open.Use(middleware.LimitMiddleware)
 	{
 
 		open.HandleFunc("/search", h.Search).Methods(http.MethodGet)
