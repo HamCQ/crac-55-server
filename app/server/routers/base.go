@@ -12,8 +12,8 @@ func (r *Router) SetRouter() *mux.Router {
 	{
 		r.API(router)
 	}
-	{
-		r.Web(router)
-	}
+	// {
+	// 	r.Web(router)
+	// }
 	return router
 }
