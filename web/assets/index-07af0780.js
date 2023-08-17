@@ -1,1 +1,0 @@
-import{N as e,a1 as n,a0 as t,b2 as s}from"./index-6f176b6b.js";const _={class:"online-status"},a=e({name:"OnlineStatus",__name:"index",setup(o){return(c,i)=>(t(),n("div",_,"onlineStatus"))}});const p=s(a,[["__scopeId","data-v-3000bb59"]]);export{p as default};
