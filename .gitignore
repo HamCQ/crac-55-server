@@ -4,3 +4,4 @@ main
 *.exe
 .DS_Store
 .git
+log/*
