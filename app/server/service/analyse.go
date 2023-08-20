@@ -72,9 +72,9 @@ func (s *Service) AnalyseRankTop(year string) (entities.AnalyseRankTopRes, error
 }
 
 // AnalyseRankAll 首页排名-所有
-func (s *Service) AnalyseRankAll(year string, rankType, page int) ([]entities.AnalyseRankContent, error) {
+func (s *Service) AnalyseRankAll(year string, rankType, page int) (entities.AnalyseRankRes, error) {
 	var (
-		res []entities.AnalyseRankContent
+		res entities.AnalyseRankRes
 		err error
 	)
 	switch rankType {

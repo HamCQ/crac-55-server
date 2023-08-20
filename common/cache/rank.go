@@ -4,6 +4,7 @@ import (
 	"crac55/app/server/entities"
 	"errors"
 	"fmt"
+	"math"
 
 	goredis "github.com/go-redis/redis"
 )
@@ -74,32 +75,25 @@ func RankUpdateTime(year string) (int, error) {
 }
 
 // RankAll 返回所有
-func RankAll(key string, page int) ([]entities.AnalyseRankContent, error) {
+func RankAll(key string, page int) (entities.AnalyseRankRes, error) {
 	var (
-		redisRes []string
-		res      []entities.AnalyseRankContent
+		res      entities.AnalyseRankRes
 		err      error
+		pagesize int64 = 100
 	)
+	allCount := RedisClient.ZCard(key).Val()
+	res.Total = allCount
+	res.Page = page
+	res.PageSize = int(pagesize)
+	res.PageCount = int(math.Ceil(float64(allCount) / float64(pagesize)))
+
+	start := (int64(page) - 1) * pagesize
+	end := (start + pagesize) - 1
 	if page == 0 {
-		allCount := RedisClient.ZCard(key).Val()
-		redisRes, err = RedisClient.ZRevRange(key, 0, allCount).Result()
-		if err != nil && !errors.Is(err, goredis.Nil) {
-			return res, err
-		}
-		for _, v := range redisRes {
-			score, err := RedisClient.ZScore(key, v).Result()
-			if err != nil {
-				return res, err
-			}
-			res = append(res, entities.AnalyseRankContent{
-				Callsign: v,
-				Score:    int(score),
-			})
-		}
-		return res, nil
+		start = 0
+		end = allCount
 	}
-	start := (int64(page) - 1) * 100
-	v, err := RedisClient.ZRevRange(key, start, start+100).Result()
+	v, err := RedisClient.ZRevRange(key, start, end).Result()
 	if err != nil && !errors.Is(err, goredis.Nil) {
 		return res, err
 	}
@@ -108,7 +102,12 @@ func RankAll(key string, page int) ([]entities.AnalyseRankContent, error) {
 		if err != nil {
 			return res, err
 		}
-		res = append(res, entities.AnalyseRankContent{
+		index, err := RedisClient.ZRank(key, v).Result()
+		if err != nil {
+			return res, err
+		}
+		res.Data = append(res.Data, entities.AnalyseRankContent{
+			Number:   int((allCount - index)) - 1,
 			Callsign: v,
 			Score:    int(score),
 		})

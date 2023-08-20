@@ -14,8 +14,17 @@ type AnalyseTotal struct {
 	SingleCallNum int64 `json:"single_call_num"`
 }
 
+type AnalyseRankRes struct {
+	Total     int64                `json:"total"`
+	Page      int                  `json:"page"`
+	PageSize  int                  `json:"page_size"`
+	PageCount int                  `json:"page_count"`
+	Data      []AnalyseRankContent `json:"data"`
+}
+
 // AnalyseRankTopContent 排名统计
 type AnalyseRankContent struct {
+	Number   int    `json:"number"`
 	Callsign string `json:"callsign"`
 	Score    int    `json:"score"`
 }
