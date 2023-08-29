@@ -4,6 +4,19 @@
 
 如果没有额外说明，接口返回均为 `json` 格式
 
+接口预览：  
+* 首页搜索 `/v1/55/search`
+* 排名统计 - Top5 `/v1/55/analyse/rank/top5`
+* 排名统计 - 所有 `/v1/55/analyse/rank/all`
+* 数据统计 - 总数 `/v1/55/analyse/total`
+* 数据统计 - BY 电台通联数量统计（0-9 区） `/v1/55/analyse/barchart/by09`
+* 数据统计 - BnCRA 电台通联统计 / BnCRA 电台通联模式比例 `/v1/55/analyse/barchart/bncra`
+* 数据统计 - 省份 QSO 数量统计 `/v1/55/analyse/province`
+* Slot 查询 `/v1/55/slot`
+* 奖状查询 `/v1/55/award`
+* 配置查询 `/v1/55/config`
+
+
 # 首页搜索
 
 Method: `GET`
@@ -57,7 +70,12 @@ Response:
                     ]
                 },
             }
-        ] 
+        ],
+        "rank_info":{
+            "cra": 1,
+            "diff_cra": 1,
+            "is_cn": false
+        }
     }
 }
 ```
@@ -246,5 +264,65 @@ Response:
             },
 
     ]
+}
+```
+
+# 奖状查询
+Method: `GET`
+
+```
+/v1/55/award
+```
+
+Request:
+| Name | E.g. | Type | Require | Remark |
+| --- | --- | --- | --- | --- |
+| year | 2022 | String | N | 所属年份 |
+| callsign | BH3WNL | String | Y | 呼号 |
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":{
+        "award_string": "Gold",
+        "award_type": 1,
+        "bncra_num": 10,
+        "combination": 27, //组合数
+        "callsign": "BH3WNL",
+        "continent": "AS", //所在大洲
+        "img_url": "", //缩略图
+        "img_url_origin": "" //原图
+    }
+}
+```
+
+# 配置查询
+Method: `GET`
+
+```
+/v1/55/config
+```
+
+Request:
+| Name | E.g. | Type | Require | Remark |
+| --- | --- | --- | --- | --- |
+| year | 2023 | String | Y | 所属年份 |
+
+Response:  
+```
+{
+    "code":200,
+    "status":true,
+    "data":{
+        "cover": "", //首页配图
+        "crac_desc": "", //crac活动介绍链接
+        "current_active_year": 2023, //当前开启活动
+        "sub_title": "", //首页标题第二行
+        "sub_title_en": "", //英文
+        "title": "", //首页标题
+        "title_en": ""
+    }
 }
 ```
