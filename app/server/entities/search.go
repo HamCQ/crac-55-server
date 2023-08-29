@@ -95,3 +95,10 @@ type AwardDetail struct {
 	ImageUrlOrigin string `json:"img_url_origin"`
 	Combination    int64  `json:"combination"`
 }
+
+// SearchRankInfo 首页搜索时的排名信息
+type SearchRankInfo struct {
+	IsCN    bool  `json:"is_cn"`
+	DiffCra int64 `json:"diff_cra"`
+	Cra     int64 `json:"cra"`
+}

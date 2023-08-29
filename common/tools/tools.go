@@ -2,10 +2,12 @@ package tools
 
 import (
 	"crac55/common/clog"
+	"crac55/common/conf"
 	"fmt"
 	"net/url"
 	"regexp"
 	"runtime/debug"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -127,4 +129,29 @@ func RencentTime(t int64) string {
 		return fmt.Sprintf("%d小时前", passTime/3600)
 	}
 	return fmt.Sprintf("%d天前", passTime/86400)
+}
+
+// CheckCNCallsign 根据规则校验中国区呼号
+func CheckCNCallsign(callsign string) bool {
+	callsign = strings.TrimSpace(strings.ToUpper(callsign))
+	if strings.HasPrefix(callsign, "B") ||
+		strings.HasPrefix(callsign, "XX") ||
+		strings.HasPrefix(callsign, "VR") {
+		return true
+	}
+	return false
+}
+
+// MaxYear 获取最大年份
+func MaxYear(t map[string]conf.ConfigInfo) int {
+	var x []int
+	for k := range t {
+		year, err := strconv.Atoi(k)
+		if err != nil {
+			year = 0
+		}
+		x = append(x, year)
+	}
+	sort.Ints(x)
+	return x[len(x)-1]
 }

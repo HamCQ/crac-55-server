@@ -114,3 +114,13 @@ func RankAll(key string, page int) (entities.AnalyseRankRes, error) {
 	}
 	return res, nil
 }
+
+// IndexRank 获取排名
+func GetRank(key, callsign string) (int64, error) {
+	allCount := RedisClient.ZCard(key).Val()
+	index, err := RedisClient.ZRank(key, callsign).Result()
+	if err != nil && !errors.Is(err, goredis.Nil) {
+		return 0, err
+	}
+	return (allCount - index) - 1, nil
+}

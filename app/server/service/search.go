@@ -3,6 +3,7 @@ package service
 import (
 	"crac55/app/server/entities"
 	"crac55/app/server/model"
+	"crac55/common/cache"
 	"crac55/common/clog"
 	"crac55/common/tools"
 )
@@ -34,6 +35,39 @@ func (s *Service) Search(callsign, year string) entities.SearchPayload {
 			Continent:   awardInfo.Continent,
 		}
 	}
+	res.RankInfo = s.rankInfo(callsign, year)
+	return res
+}
+
+// rankInfo 获取排名信息
+func (s *Service) rankInfo(callsign, year string) entities.SearchRankInfo {
+	var (
+		res entities.SearchRankInfo
+	)
+	if tools.CheckCNCallsign(callsign) {
+		cnCra, err := cache.GetRank(cache.KeyCnCra(year), callsign)
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		cnDiffCra, err := cache.GetRank(cache.KeyCnDiffCra(year), callsign)
+		if err != nil {
+			clog.Log().Errorln(err)
+		}
+		res.IsCN = true
+		res.Cra = cnCra
+		res.DiffCra = cnDiffCra
+		return res
+	}
+	globleCra, err := cache.GetRank(cache.KeyGlobleCra(year), callsign)
+	if err != nil {
+		clog.Log().Errorln(err)
+	}
+	globleDiffCra, err := cache.GetRank(cache.KeyGlobleDiffCra(year), callsign)
+	if err != nil {
+		clog.Log().Errorln(err)
+	}
+	res.Cra = globleCra
+	res.DiffCra = globleDiffCra
 	return res
 }
 

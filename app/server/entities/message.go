@@ -13,6 +13,7 @@ type SearchPayload struct {
 	Bxcra       []SearchStationDetail `json:"bxcra"`
 	Bncra       SearchStationDetail   `json:"bncra"`
 	AwardStatus AwardInfo             `json:"award_info"`
+	RankInfo    SearchRankInfo        `json:"rank_info"`
 }
 
 // AnalyseRankTopRes 排名统计

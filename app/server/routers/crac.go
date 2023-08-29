@@ -33,4 +33,7 @@ func (r *Router) API(router *mux.Router) {
 	{
 		open.HandleFunc("/slot", h.Slot).Methods(http.MethodGet)
 	}
+	{
+		open.HandleFunc("/config", h.Config).Methods(http.MethodGet)
+	}
 }

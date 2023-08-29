@@ -26,3 +26,19 @@
 [task.test]
     spec = "*/5 * * * * ?"
     status = "off"
+
+[conf.2023]
+    title = "2023年度"
+    subTitle = "纪念“5.5中国业余无线电节”空中通联活动"
+    titleEn = "Season 2023"
+    subTitleEn = "May 5th Chinese Radio Amateurs Festival's Activity"
+    cover = "https://api.hamcq.cn/img/2023.svg"
+    cracDesc = "http://www.crac.org.cn/News/Detail?ID=e3af63b9066b409d8ba10858e61f5e75"
+
+[conf.2022]
+    title = "2022年度"
+    subTitle = "纪念“5.5中国业余无线电节”空中通联活动"
+    titleEn = "Season 2022"
+    subTitleEn = "May 5th Chinese Radio Amateurs Festival's Activity"
+    cover = "https://api.hamcq.cn/img/crac_title.svg"
+    cracDesc = "http://www.crac.org.cn/News/Detail?ID=e8d612a8c5f1409a8cb66533d733862b"

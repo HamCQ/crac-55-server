@@ -21,7 +21,8 @@ type app struct {
 		From    string
 		Account EmailAccountInfo
 	}
-	Task map[string]taskInfo
+	Task       map[string]taskInfo
+	SiteConfig map[string]ConfigInfo `toml:"conf"`
 }
 
 // DbCommon 数据库配置
@@ -43,4 +44,14 @@ type EmailAccountInfo struct {
 type taskInfo struct {
 	Spec   string
 	Status string
+}
+
+// configInfo 站点基础配置信息
+type ConfigInfo struct {
+	Title      string
+	SubTitle   string
+	TitleEn    string
+	SubTitleEn string
+	CracDesc   string
+	Cover      string
 }
