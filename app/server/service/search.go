@@ -6,6 +6,7 @@ import (
 	"crac55/common/cache"
 	"crac55/common/clog"
 	"crac55/common/tools"
+	"strings"
 )
 
 // Search 首页搜索
@@ -44,6 +45,7 @@ func (s *Service) rankInfo(callsign, year string) entities.SearchRankInfo {
 	var (
 		res entities.SearchRankInfo
 	)
+	callsign = strings.ToUpper(callsign)
 	if tools.CheckCNCallsign(callsign) {
 		cnCra, err := cache.GetRank(cache.KeyCnCra(year), callsign)
 		if err != nil {
