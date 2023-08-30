@@ -122,5 +122,8 @@ func GetRank(key, callsign string) (int64, error) {
 	if err != nil && !errors.Is(err, goredis.Nil) {
 		return 0, err
 	}
+	if errors.Is(err, goredis.Nil) {
+		return 0, nil
+	}
 	return (allCount - index) - 1, nil
 }
