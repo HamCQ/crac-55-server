@@ -9,4 +9,5 @@ type Config struct {
 	SubTitleEn        string `json:"sub_title_en"`
 	Cover             string `json:"cover"`
 	CracDesc          string `json:"crac_desc"`
+	YearList          []int  `json:"year_list"`
 }

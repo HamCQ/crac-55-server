@@ -143,7 +143,7 @@ func CheckCNCallsign(callsign string) bool {
 }
 
 // MaxYear 获取最大年份
-func MaxYear(t map[string]conf.ConfigInfo) int {
+func MaxYear(t map[string]conf.ConfigInfo) (int, []int) {
 	var x []int
 	for k := range t {
 		year, err := strconv.Atoi(k)
@@ -153,5 +153,5 @@ func MaxYear(t map[string]conf.ConfigInfo) int {
 		x = append(x, year)
 	}
 	sort.Ints(x)
-	return x[len(x)-1]
+	return x[len(x)-1], x
 }
